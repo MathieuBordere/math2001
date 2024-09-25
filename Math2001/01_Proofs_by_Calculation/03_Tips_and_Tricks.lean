@@ -126,11 +126,20 @@ example {a b : ℝ} (h1 : a + 2 * b = 4) (h2 : a - b = 1) : a = 2 :=
   _ = 2 := by ring
 
 example {u v : ℝ} (h1 : u + 1 = v) : u ^ 2 + 3 * u + 1 = v ^ 2 + v - 1 :=
-  sorry
+  calc
+  u^2 + 3*u + 1 = (u+1)^2 - 2*(u+1) + 1 + 3*(u+1) - 3 + 1 := by ring
+  _ = v^2 - 2*v + 1 + 3*v - 3 + 1 := by rw [h1]
+  _ = v^2 + v - 1 := by ring
 
 example {t : ℚ} (ht : t ^ 2 - 4 = 0) :
     t ^ 4 + 3 * t ^ 3 - 3 * t ^ 2 - 2 * t - 2 = 10 * t + 2 :=
-  sorry
+    calc
+    t^4 + 3*t^3 - 3*t^2 - 2*t - 2 = (t^2-4)*t^2 + 4*t^2 + 3*t*(t^2-4) + 12*t
+    - 3*(t^2 - 4) - 12 - 2*t - 2 := by ring
+    _ = 0*t^2 + 4*t^2 + 3*t*0 + 12*t - 3*0 - 12 - 2*t - 2 := by rw [ht]
+    _ = 4*(t^2-4) + 16 + 10*t - 14 := by ring
+    _ = 4*0 + 16 + 10*t - 14 := by rw [ht]
+    _ = 10*t + 2 := by ring
 
 example {x y : ℝ} (h1 : x + 3 = 5) (h2 : 2 * x - y * x = 0) : y = 2 :=
   sorry
