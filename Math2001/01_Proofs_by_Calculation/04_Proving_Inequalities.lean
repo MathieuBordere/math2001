@@ -126,10 +126,13 @@ example {a b : ℚ} (h1 : 3 ≤ a) (h2 : a + 2 * b ≥ 4) : a + b ≥ 3 :=
   a + b = (a+2*b)/2 + a/2 := by ring
   _ ≥ 4/2 + a/2 := by rel [h2]
   _ ≥ 4/2 + 3/2 := by rel [h1]
-  _ > 3 := by numbers
+  _ ≥  3 := by numbers
 
 example {x : ℤ} (hx : x ≥ 9) : x ^ 3 - 8 * x ^ 2 + 2 * x ≥ 3 :=
-  sorry
+  calc
+  x^3 - 8*x^2 + 2*x = x^2*(x-8) + 2*x := by ring
+  _ >= 9^2*(9-8) + 2*9 := by rel [hx]
+  _ ≥ 3 := by numbers
 
 example {n : ℤ} (hn : n ≥ 10) : n ^ 4 - 2 * n ^ 2 > 3 * n ^ 3 :=
   sorry
